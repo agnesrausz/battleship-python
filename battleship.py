@@ -1,7 +1,5 @@
 import string
-print("Please give me the board size:")
-board_range = int(input (""))
-board = []
+
 
 def init_board(board_range):
     board = []
@@ -11,13 +9,15 @@ def init_board(board_range):
             board[i].append("0")
     return board
 
-def print_board(board):
+
+def print_board(board, board_range):
     print(" ", end=" ")
-    for i in range(1,board_range+1):
+    for i in range(1, board_range+1):
         print(i, end=" ")
     print("")
     for i in range(board_range):
-        print(string.ascii_uppercase[i],' '.join(board[i]))
+        print(string.ascii_uppercase[i], ' '.join(board[i]))
+
 
 def valid_coord(player_coord):
     abc = ("abcdefghij")
@@ -39,6 +39,11 @@ def get_placement(board):
     close_coordinates = []
     board_coordinates = []
     board_all_coordinates = []
+    out_of_range_coordinates = []
+    for i in range(len(board) + 1):
+        out_of_range_coordinates.append([])
+        for j in range(len(board) + 1):
+            out_of_range_coordinates[i].append((i, j))
     for i in range(len(board)):
         board_coordinates.append([])
         for j in range(len(board[i])):
@@ -48,10 +53,10 @@ def get_placement(board):
         for j in range(len(board[i])):
             if board[i][j] != "0":
                 ship_coordinates.append(board_coordinates[i][j])
-                close_coordinates.append(board_coordinates[i + 1][j])
-                close_coordinates.append(board_coordinates[i - 1][j])
-                close_coordinates.append(board_coordinates[i][j + 1])
-                close_coordinates.append(board_coordinates[i][j - 1])
+                close_coordinates.append(out_of_range_coordinates[i + 1][j])
+                close_coordinates.append(out_of_range_coordinates[i - 1][j])
+                close_coordinates.append(out_of_range_coordinates[i][j + 1])
+                close_coordinates.append(out_of_range_coordinates[i][j - 1])
     while True:
         player_coord = (input("Add coordinate!")).lower()
         player_coord = valid_coord(player_coord)
@@ -88,7 +93,7 @@ def select_direction(ship_1_part_coord, board):
                     ship_2_part_coord = (ship_1_part_coord[0], ship_1_part_coord[1] + 1)
                 return ship_2_part_coord
             elif direction == "vertical" or direction == "2":
-                if (ship_1_part_coord[0], ship_1_part_coord[1] + 1) not in board_all_coordinates:
+                if (ship_1_part_coord[0] + 1, ship_1_part_coord[1]) not in board_all_coordinates:
                     ship_2_part_coord = (ship_1_part_coord[0] - 1, ship_1_part_coord[1])
                 else:
                     ship_2_part_coord = (ship_1_part_coord[0] + 1, ship_1_part_coord[1])
@@ -100,6 +105,20 @@ def mark(board, row, col):
 
 
 if __name__ == "__main__":
+    #  board_range = 5  # int(input("Please give me the board size:"))
+    #  board = [['0','0','0','0','0'],['0','0','0','0','0'],['0','0','0','0','0'],['0','x','x','0','0'],['0','0','0','0','0']]
+    #  print_board(board, board_range)
+    board_range = 5
     board = init_board(board_range)
-    get_placement(board)
-    print_board(board)
+    print_board(board, board_range)
+    print("Player 1 turn.")
+    row, col = get_placement(board)
+    mark(board, row, col)
+    print_board(board, board_range)
+    row, col = select_direction((row, col), board)
+    mark(board, row, col)
+    print_board(board, board_range)
+    for shipmini in range(3):
+        row, col = get_placement(board)
+        mark(board, row, col)
+        print_board(board, board_range)
