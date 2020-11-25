@@ -1,8 +1,10 @@
 import string
+print("Please give me the board size:")
 board_range = int(input (""))
 board = []
 
 def init_board(board_range):
+    board = []
     for i in range(board_range):
         board.append([])
         for j in range(board_range):
@@ -10,12 +12,12 @@ def init_board(board_range):
     return board
 
 def print_board(board):
+    print(" ", end=" ")
     for i in range(1,board_range+1):
-        print(" ",i, end=" ")
+        print(i, end=" ")
     print("")
     for i in range(board_range):
-        print(string.ascii_uppercase[i],board[i])
-
+        print(string.ascii_uppercase[i],' '.join(board[i]))
 
 def valid_coord(player_coord):
     abc = ("abcdefghij")
@@ -68,9 +70,36 @@ def get_placement(board):
     return row, col
 
 
+def select_direction(ship_1_part_coord, board):
+    board_all_coordinates = []
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            board_all_coordinates.append((i, j))
+    while True:
+        valid_direction = ("horizontal", "vertical", "1", "2")
+        direction = (input("Add direction! (horizontal[1]/vertical[2])")).lower()
+        if direction not in valid_direction:
+            print("It's not a valid direction")
+        else:
+            if direction == "horizontal" or direction == "1":
+                if (ship_1_part_coord[0], ship_1_part_coord[1] + 1) not in board_all_coordinates:
+                    ship_2_part_coord = (ship_1_part_coord[0], ship_1_part_coord[1] - 1)
+                else:
+                    ship_2_part_coord = (ship_1_part_coord[0], ship_1_part_coord[1] + 1)
+                return ship_2_part_coord
+            elif direction == "vertical" or direction == "2":
+                if (ship_1_part_coord[0], ship_1_part_coord[1] + 1) not in board_all_coordinates:
+                    ship_2_part_coord = (ship_1_part_coord[0] - 1, ship_1_part_coord[1])
+                else:
+                    ship_2_part_coord = (ship_1_part_coord[0] + 1, ship_1_part_coord[1])
+                return ship_2_part_coord
+
+
 def mark(board, row, col):
     board[row][col] = "X"
+
 
 if __name__ == "__main__":
     board = init_board(board_range)
     get_placement(board)
+    print_board(board)
