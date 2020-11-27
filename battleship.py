@@ -263,7 +263,7 @@ def shooting_phase(board_range, player1, player2, player1_board, player2_board):
     winner = 0
     if has_won_player(board_range, shooting_board_player2):
         winner = 1
-    elif has_won_player(board_range, shooting_board_player2):
+    elif has_won_player(board_range, shooting_board_player1):
         winner = 2
     print("Player" + str(winner) + " wins!")
 
