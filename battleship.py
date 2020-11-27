@@ -286,10 +286,10 @@ def main_menu():
     elif menu_option == "2":
         print("Please give me the board size between 5 and 10;")
         board_range = int(input(""))
-        if board_range > 10:
+        if board_range >= 10 or board_range <= 5:
             correctrange = False
             while correctrange == False:
-                print("Board is out of range!\nChoose a size between 5 and 10;")
+                print("Board size is incorrect!\nChoose a size between 5 and 10;")
                 board_range = int(input(""))
                 if board_range <= 10:
                     correctrange = True
