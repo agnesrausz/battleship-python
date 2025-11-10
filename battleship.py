@@ -5,5 +5,9 @@ def init_board(board_rows=5, board_cols=5):
         board.append(['0'] * board_cols)
     return board
 
+
+def place_ship(board, row, col, direction, ship_size):
+    pass
+
 if __name__ == "__main__":
     pass
