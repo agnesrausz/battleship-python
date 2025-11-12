@@ -1,5 +1,6 @@
 
 def init_board(board_rows=5, board_cols=5):
+    """Initializes and returns an empty board."""
     board = []
     for _ in range(board_rows):
         board.append(['0'] * board_cols)
