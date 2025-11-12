@@ -1,3 +1,5 @@
+import os
+
 
 def init_board(board_rows=5, board_cols=5):
     """Initializes and returns an empty board."""
@@ -7,8 +9,11 @@ def init_board(board_rows=5, board_cols=5):
     return board
 
 
-def place_ship(board, row, col, direction, ship_size):
-    pass
+def place_ship(board, coordinates):
+    """Places a ship on the board."""
+    for row, col in coordinates:
+        board[row][col] = 'X'
+    return board
 
 
 def get_ship_placement(board, player):
