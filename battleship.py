@@ -61,5 +61,17 @@ def get_ship_placement(board, ship_size):
         return coordinates
 
 
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def print_board(board):
+    """Prints the board on the screen with borders."""
+    clear()
+    print('  ' + ' '.join(str(i + 1) for i in range(len(board[0]))))
+    for i, row in enumerate(board):
+        print(f'{chr(ord('A') + i)} ' + ' '.join(row))
+
+
 if __name__ == "__main__":
     pass
