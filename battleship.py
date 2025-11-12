@@ -25,13 +25,16 @@ def get_ship_placement(board, ship_size):
     col_len = len(board[0])
 
     while True:
-        if ship_size == 1:
-            placement = input(
-                f'Enter your ship placement (e.g. B2): ').strip().lower().split()
-            placement.append('h')  # default direction for size 1 ship
-        else:
-            placement = input(
-                f'Enter your ship placement (e.g. B2 H for horizontal or C3 V for vertical): ').strip().lower().split()
+        # if ship_size == 1:
+        #     placement = input(
+        #         f'Enter your ship placement (e.g. B2): ').strip().lower().split()
+        #     if 'h' or 'v' not in placement:
+        #         placement.append('h')  # default direction for size 1 ship
+        # else:
+        #     placement = input(
+        #         f'Enter your ship placement (e.g. B2 H for horizontal or C3 V for vertical): ').strip().lower().split()
+
+        placement = input(f'Enter your ship placement (e.g. B2 H for horizontal or C3 V for vertical): ').strip().lower().split()
 
         if len(placement[0]) != 2:
             print('Invalid coordinate, try again!')
@@ -42,7 +45,7 @@ def get_ship_placement(board, ship_size):
             continue
 
         if len(placement) != 2:
-            print('Invalid input!')
+            print('Invalid input, try again!')
             continue
 
         row = ord(placement[0][0]) - first_letter_ascii_code
@@ -55,6 +58,11 @@ def get_ship_placement(board, ship_size):
 
         if not (0 <= row < row_len and 0 <= col < col_len):
             print('That move is out of bounds, try again!')
+            continue
+
+        if ((direction == 'h' and col + ship_size > col_len) or
+                (direction == 'v' and row + ship_size > row_len)):
+            print('Ship does not fit on the board, try again!')
             continue
 
         coordinates = []
