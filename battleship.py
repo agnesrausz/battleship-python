@@ -16,8 +16,25 @@ def place_ship(board, coordinates):
     return board
 
 
-def get_ship_placement(board, player):
-    pass
+def is_space_free(board, coordinates):
+    """Checks if the space for the ship is free and not adjacent to other ships."""
+    row_len = len(board)
+    col_len = len(board[0])
+    directions = [(-1, 0), (1,0), (0,-1), (0, 1)]
+
+    for row, col in coordinates:
+        # Check the ship's coordinates
+        if board[row][col] != '0':
+            return False
+        # Check adjacent coordinates
+        for dr, dc in directions:
+            adj_row, adj_col = row + dr, col + dc
+            if 0 <= adj_row < row_len and 0 <= adj_col < col_len:
+                if board[adj_row][adj_col] != '0':
+                    return False
+    return True
+
+
 def get_ship_placement(board, ship_size):
     """Returns the coordinates of a valid ship placement on board."""
     first_letter_ascii_code = ord('a')
@@ -71,6 +88,10 @@ def get_ship_placement(board, ship_size):
                 coordinates.append((row, col + offset))
             else:
                 coordinates.append((row + offset, col))
+
+        if not is_space_free(board, coordinates):
+            print('Ships are too close, try again!')
+            continue
 
         return coordinates
 
