@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 def init_board(board_rows=5, board_cols=5):
@@ -106,6 +107,22 @@ def print_board(board):
     print('  ' + ' '.join(str(i + 1) for i in range(len(board[0]))))
     for i, row in enumerate(board):
         print(f'{chr(ord('A') + i)} ' + ' '.join(row))
+
+
+def wait_for_keypress():
+    if os.name == "nt":
+        import msvcrt
+        msvcrt.getch()
+    else:
+        import termios
+        import tty
+        fd = sys.stdin.fileno()
+        old = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
 
 if __name__ == "__main__":
