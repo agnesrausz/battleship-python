@@ -56,7 +56,12 @@ def get_ship_placement(board, ship_size):
         #     placement = input(
         #         f'Enter your ship placement (e.g. B2 H for horizontal or C3 V for vertical): ').strip().lower().split()
 
-        placement = input(f'Enter your ship placement (e.g. B2 H for horizontal or C3 V for vertical): ').strip().lower().split()
+        placement = input(
+            f'Enter your ship placement (e.g. B2 H for horizontal or C3 V for vertical): ').strip().lower().split()
+
+        if len(placement) != 2:
+            print('Invalid input, try again!')
+            continue
 
         if len(placement[0]) != 2:
             print('Invalid coordinate, try again!')
@@ -64,10 +69,6 @@ def get_ship_placement(board, ship_size):
 
         if not placement[0][0].isalpha() or not placement[0][1].isdigit():
             print('Invalid coordinate, try again!')
-            continue
-
-        if len(placement) != 2:
-            print('Invalid input, try again!')
             continue
 
         row = ord(placement[0][0]) - first_letter_ascii_code
