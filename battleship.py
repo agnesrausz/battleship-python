@@ -143,10 +143,11 @@ def placement_phase(ships_to_place):
 def battleship():
     ships_to_place = [2, 1]  # Example ship sizes
     board_player1 = placement_phase(ships_to_place)
+    clear()
     print('Next player\'s placement phase. Press any key to continue...')
     wait_for_keypress()
     board_player2 = placement_phase(ships_to_place)
 
 
 if __name__ == "__main__":
-    pass
+    battleship()
