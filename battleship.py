@@ -17,6 +17,10 @@ def place_ship(board, coordinates):
     return board
 
 
+def is_valid_coordinates(board, coordinates):
+    return True
+
+
 def is_space_free(board, coordinates):
     """Checks if the space for the ship is free and not adjacent to other ships."""
     row_len = len(board)
@@ -123,6 +127,24 @@ def wait_for_keypress():
             sys.stdin.read(1)
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
+def placement_phase(ships_to_place):
+    board = init_board()
+    for ship_size in ships_to_place:
+        print_board(board)
+        ship_placement = get_ship_placement(board, ship_size)
+        board = place_ship(board, ship_placement)
+    print_board(board)
+    return board
+
+
+def battleship():
+    ships_to_place = [2, 1]  # Example ship sizes
+    board_player1 = placement_phase(ships_to_place)
+    print('Next player\'s placement phase. Press any key to continue...')
+    wait_for_keypress()
+    board_player2 = placement_phase(ships_to_place)
 
 
 if __name__ == "__main__":
