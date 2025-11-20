@@ -205,6 +205,20 @@ def mark_shrunk_ship(board, row, col):
 
 
 
+def mark_shot(board, row, col):
+    if 0 <= row < len(board) and 0 <= col < len(board[0]):
+        if board[row][col] == 'X':
+            board[row][col] = 'H'
+            print("You've hit a ship!")
+        else:
+            board[row][col] = 'M'
+            print("You've missed!")
+        mark_shrunk_ship(board, row, col)
+        if board[row][col] == 'S':
+            print("You've sunk a ship!")
+    return board
+
+
 def battleship():
     ships_to_place = [2, 1]  # Example ship sizes
     board_player1 = placement_phase(ships_to_place)
