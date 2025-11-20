@@ -184,6 +184,27 @@ def get_shot(board):
         return row, col
 
 
+def mark_shrunk_ship(board, row, col):
+    # ai - not tested
+    """Marks the ship as sunk if all parts are hit."""
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    ship_cells = [(row, col)]
+
+    # Find all parts of the ship
+    for dr, dc in directions:
+        r, c = row + dr, col + dc
+        while 0 <= r < len(board) and 0 <= c < len(board[0]) and board[r][c] in ['X', 'H']:
+            ship_cells.append((r, c))
+            r += dr
+            c += dc
+
+    # Check if all parts are hit
+    if all(board[r][c] == 'H' for r, c in ship_cells):
+        for r, c in ship_cells:
+            board[r][c] = 'S'
+
+
+
 def battleship():
     ships_to_place = [2, 1]  # Example ship sizes
     board_player1 = placement_phase(ships_to_place)
