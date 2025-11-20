@@ -219,6 +219,14 @@ def mark_shot(board, row, col):
     return board
 
 
+def shooting_phase(board_player1, board_player2):
+    board = board_player2  # Start with player 1 shooting at player 2
+    while True:
+        print_boards(board_player1, board_player2)
+        row, col = get_shot(board)
+        board = mark_shot(board, row, col)
+
+
 def battleship():
     ships_to_place = [2, 1]  # Example ship sizes
     board_player1 = placement_phase(ships_to_place)
@@ -226,6 +234,8 @@ def battleship():
     print('Next player\'s placement phase. Press any key to continue...')
     wait_for_keypress()
     board_player2 = placement_phase(ships_to_place)
+    clear()
+    shooting_phase(board_player1, board_player2)
 
 
 if __name__ == "__main__":
