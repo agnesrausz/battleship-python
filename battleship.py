@@ -153,6 +153,37 @@ def placement_phase(ships_to_place):
     return board
 
 
+def get_shot(board):
+    """Returns the coordinates of a valid shot."""
+    first_letter_ascii_code = ord('a')
+    row_len = len(board)
+    col_len = len(board[0])
+
+    while True:
+        shot = input('Enter your shot (e.g. B2): ').strip().lower()
+
+        if len(shot) != 2:
+            print('Invalid coordinate, try again!')
+            continue
+
+        if not shot[0].isalpha() or not shot[1].isdigit():
+            print('Invalid coordinate, try again!')
+            continue
+
+        row = ord(shot[0]) - first_letter_ascii_code
+        col = int(shot[1]) - 1
+
+        if not (0 <= row < row_len and 0 <= col < col_len):
+            print('That shot is out of bounds, try again!')
+            continue
+
+        if board[row][col] != '0' and board[row][col] != 'X':
+            print('You already shot that coordinate, try again!')
+            continue
+
+        return row, col
+
+
 def battleship():
     ships_to_place = [2, 1]  # Example ship sizes
     board_player1 = placement_phase(ships_to_place)
