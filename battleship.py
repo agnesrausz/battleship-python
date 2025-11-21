@@ -118,12 +118,12 @@ def print_boards(board_player1, board_player2):
     """Prints both players' boards side by side."""
     clear()
     print('    Player 1          Player 2')
-    print('  ' + ' '.join(str(i + 1) for i in range(len(board_player1[0]))) + '     ' +
+    print('  ' + ' '.join(str(i + 1) for i in range(len(board_player1[0]))) + '   ' +
           '  ' + ' '.join(str(i + 1) for i in range(len(board_player2[0]))))
     for i in range(len(board_player1)):
         row_label = chr(ord('A') + i)
-        row_player1 = ' '.join(board_player1[i])
-        row_player2 = ' '.join(board_player2[i])
+        row_player1 = ' '.join(coord if coord != 'X' else '0' for coord in board_player1[i])
+        row_player2 = ' '.join(coord if coord != 'X' else '0' for coord in board_player2[i])
         print(f'{row_label} {row_player1}   {row_label} {row_player2}')
 
 
