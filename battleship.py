@@ -232,10 +232,21 @@ def mark_shot(board, row, col):
 
 def shooting_phase(board_player1, board_player2):
     board = board_player2  # Start with player 1 shooting at player 2
+    current_player = 'Player 1'
     while True:
         print_boards(board_player1, board_player2)
+        print(f'{current_player}\'s turn to shoot.')
+
         row, col = get_shot(board)
-        board = mark_shot(board, row, col)
+        board, message = mark_shot(board, row, col)
+
+        print_boards(board_player1, board_player2)
+        print(f'{current_player}\'s turn to shoot.')
+        print(message)
+        time.sleep(1)
+
+        board = board_player1 if current_player == 'Player 1' else board_player2
+        current_player = 'Player 2' if current_player == 'Player 1' else 'Player 1'
 
 
 def battleship():
