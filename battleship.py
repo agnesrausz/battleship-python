@@ -242,6 +242,12 @@ def shooting_phase(board_player1, board_player2):
         print(message)
         time.sleep(1)
 
+        has_won = all(cell != 'X' for row in board for cell in row)
+        if has_won:
+            print_boards(board_player1, board_player2)
+            print(f'{current_player} wins!')
+            break
+
         board = board_player1 if current_player == 'Player 1' else board_player2
         current_player = 'Player 2' if current_player == 'Player 1' else 'Player 1'
 
