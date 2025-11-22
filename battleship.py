@@ -1,6 +1,6 @@
 import os
 import sys
-
+import time
 
 def init_board(board_rows=5, board_cols=5):
     """Initializes and returns an empty board."""
@@ -143,7 +143,7 @@ def wait_for_keypress():
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
 
-def placement_phase(ships_to_place):
+def place_ships(ships_to_place):
     board = init_board()
     for ship_size in ships_to_place:
         print_board(board)
@@ -152,6 +152,17 @@ def placement_phase(ships_to_place):
     print_board(board)
     return board
 
+
+def placement_phase(ships_to_place):
+    board_player1 = place_ships(ships_to_place)
+    time.sleep(1)
+    clear()
+    print('Next player\'s placement phase. Press any key to continue...')
+    wait_for_keypress()
+    board_player2 = place_ships(ships_to_place)
+    time.sleep(1)
+    clear()
+    return board_player1, board_player2
 
 def get_shot(board):
     """Returns the coordinates of a valid shot."""
@@ -229,12 +240,7 @@ def shooting_phase(board_player1, board_player2):
 
 def battleship():
     ships_to_place = [2, 1]  # Example ship sizes
-    board_player1 = placement_phase(ships_to_place)
-    clear()
-    print('Next player\'s placement phase. Press any key to continue...')
-    wait_for_keypress()
-    board_player2 = placement_phase(ships_to_place)
-    clear()
+    board_player1, board_player2 = placement_phase(ships_to_place)
     shooting_phase(board_player1, board_player2)
 
 
