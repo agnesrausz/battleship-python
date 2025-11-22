@@ -14,8 +14,6 @@ def place_ship(board, coordinates):
     """Places a ship on the board."""
     for row, col in coordinates:
         board[row][col] = 'X'
-    return board
-
 
 def is_valid_coordinates(board, coordinates):
     return True
@@ -148,7 +146,7 @@ def place_ships(ships_to_place):
     for ship_size in ships_to_place:
         print_board(board)
         ship_placement = get_ship_placement(board, ship_size)
-        board = place_ship(board, ship_placement)
+        place_ship(board, ship_placement)
     print_board(board)
     return board
 
@@ -227,7 +225,7 @@ def mark_shot(board, row, col):
             mark_shrunk_ship(board, row, col)
             if board[row][col] == 'S':
                 message = "You've sunk a ship!"
-    return board, message
+    return message
 
 
 def shooting_phase(board_player1, board_player2):
@@ -238,7 +236,7 @@ def shooting_phase(board_player1, board_player2):
         print(f'{current_player}\'s turn to shoot.')
 
         row, col = get_shot(board)
-        board, message = mark_shot(board, row, col)
+        message = mark_shot(board, row, col)
 
         print_boards(board_player1, board_player2)
         print(f'{current_player}\'s turn to shoot.')
