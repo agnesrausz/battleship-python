@@ -117,7 +117,7 @@ def print_board(board):
 def print_boards(board_player1, board_player2):
     """Prints both players' boards side by side."""
     clear()
-    print('    Player 1          Player 2')
+    print(' Player 1      Player 2')
     print('  ' + ' '.join(str(i + 1) for i in range(len(board_player1[0]))) + '   ' +
           '  ' + ' '.join(str(i + 1) for i in range(len(board_player2[0]))))
     for i in range(len(board_player1)):
