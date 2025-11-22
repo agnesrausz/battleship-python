@@ -188,10 +188,6 @@ def get_shot(board):
             print('That shot is out of bounds, try again!')
             continue
 
-        if board[row][col] != '0' and board[row][col] != 'X':
-            print('You already shot that coordinate, try again!')
-            continue
-
         return row, col
 
 
@@ -217,17 +213,21 @@ def mark_shrunk_ship(board, row, col):
 
 
 def mark_shot(board, row, col):
+    message = ''
     if 0 <= row < len(board) and 0 <= col < len(board[0]):
-        if board[row][col] == 'X':
-            board[row][col] = 'H'
-            print("You've hit a ship!")
+        if board[row][col] in ['H', 'M', 'S']:
+            message = "You've already shot that spot!"
         else:
-            board[row][col] = 'M'
-            print("You've missed!")
-        mark_shrunk_ship(board, row, col)
-        if board[row][col] == 'S':
-            print("You've sunk a ship!")
-    return board
+            if board[row][col] == 'X':
+                board[row][col] = 'H'
+                message = "You've hit a ship!"
+            elif board[row][col] == '0':
+                board[row][col] = 'M'
+                message = "You've missed!"
+            mark_shrunk_ship(board, row, col)
+            if board[row][col] == 'S':
+                message = "You've sunk a ship!"
+    return board, message
 
 
 def shooting_phase(board_player1, board_player2):
