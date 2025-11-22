@@ -141,8 +141,7 @@ def wait_for_keypress():
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
 
-def place_ships(ships_to_place):
-    board = init_board()
+def place_ships(board ,ships_to_place):
     for ship_size in ships_to_place:
         print_board(board)
         ship_placement = get_ship_placement(board, ship_size)
@@ -152,12 +151,12 @@ def place_ships(ships_to_place):
 
 
 def placement_phase(ships_to_place):
-    board_player1 = place_ships(ships_to_place)
+    board_player1 = place_ships(init_board(), ships_to_place)
     time.sleep(1)
     clear()
     print('Next player\'s placement phase. Press any key to continue...')
     wait_for_keypress()
-    board_player2 = place_ships(ships_to_place)
+    board_player2 = place_ships(init_board(), ships_to_place)
     time.sleep(1)
     clear()
     return board_player1, board_player2
