@@ -189,7 +189,6 @@ def get_shot(board):
 
 
 def mark_shrunk_ship(board, row, col):
-    # ai - not tested
     """Marks the ship as sunk if all parts are hit."""
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     ship_cells = [(row, col)]
